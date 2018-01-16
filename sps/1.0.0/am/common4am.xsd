@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+    xmlns:n52sps="http://www.52north.org/sps/v1" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    targetNamespace="http://www.52north.org/sps/v1" 
+    elementFormDefault="qualified" 
+    attributeFormDefault="unqualified">
+    
+	<xs:include schemaLocation="../common/common.xsd"/>
+</xs:schema>

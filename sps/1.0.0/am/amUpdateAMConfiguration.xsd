@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2005 rel. 3 U (http://www.altova.com) by Johannes Echterhoff (Westfälische Wilhelms-Universität Münster) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Institut für Geoinformatik (Institut für Geoinformatik) -->
+<xs:schema 
+xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+xmlns:am="http://www.52north.org/sps/v1-00/am" 
+xmlns:n52sps="http://www.52north.org/sps/v1" 
+targetNamespace="http://www.52north.org/sps/v1-00/am" 
+elementFormDefault="qualified" 
+attributeFormDefault="unqualified">
+
+  <xs:include schemaLocation="./amCommon.xsd"/>
+  <xs:import namespace="http://www.52north.org/sps/v1" 
+  schemaLocation="./common4am.xsd"/>
+  
+  <xs:element name="UpdateAMConfiguration">
+    <xs:annotation>
+      <xs:documentation>This operation is only used to register or remove a plugin. The sensor elements in an AMConfiguration instance are altered via the Register-, Unregister- and Update operations.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice>
+        <xs:element name="CreateTypeMapping" type="am:TypeMappingType">
+          <xs:annotation>
+            <xs:documentation>Add a new plugin.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="DeleteTypeMapping">
+          <xs:annotation>
+            <xs:documentation>Remove a plugin.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="am:PluginType"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateAMConfigurationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Status">
+          <xs:simpleType>
+            <xs:restriction base="xs:token">
+              <xs:enumeration value="success"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateAMConfigurationExceptionInformation">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="UndeletedSensors">
+          <xs:annotation>
+            <xs:documentation>Used to identify the (still) registered sensors that block an intended delete action.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="n52sps:SensorIdentifier" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

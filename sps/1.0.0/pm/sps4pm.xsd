@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+xmlns:sps="http://www.opengis.net/sps/1.0" 
+targetNamespace="http://www.opengis.net/sps/1.0" 
+elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xs:annotation>
+		<xs:documentation> sps4pm.xsd Utility schema which simply includes the SPS schema documents
+			required for the pm schemas</xs:documentation>
+	</xs:annotation>
+	<!-- ==============================================================
+       includes
+	============================================================== -->
+	<!-- <xs:include schemaLocation="file:///D:/Arbeit/SWE/ows-4-20070710/swe/trunk/sps/0.0.0/spsContents.xsd" /> -->
+	<!-- <xs:include schemaLocation="file:///C:/DATA/SPS_Files/ows-4-20070710/swe/trunk/sps/0.0.0/spsContents.xsd"/> abslute path for v alidating used -->
+	<xs:include schemaLocation="http://schemas.opengis.net/sps/1.0.0/spsContents.xsd"/>
+	<!-- <xs:include schemaLocation="http://schemas.opengis.net/sps/1.0.0/spsCommon.xsd"/> included by spsContents-->
+	<!-- <xs:include 
+    schemaLocation="http://schemas.opengis.net/sps/1.0.0/spsDescribeTaskingRequestResponse.xsd"/> -->
+</xs:schema>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2005 rel. 3 U (http://www.altova.com) by Johannes Echterhoff (Westfälische Wilhelms-Universität Münster) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Institut für Geoinformatik (Institut für Geoinformatik) -->
+<xs:schema 
+xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+xmlns:am="http://www.52north.org/sps/v1-00/am" 
+xmlns:n52sps="http://www.52north.org/sps/v1" 
+targetNamespace="http://www.52north.org/sps/v1-00/am" 
+elementFormDefault="unqualified" 
+attributeFormDefault="unqualified">
+  <xs:include schemaLocation="./amCommon.xsd"/>
+  <xs:import 
+  namespace="http://www.52north.org/sps/v1" 
+  schemaLocation="./common4am.xsd"/>
+  <!--Transitively imports common4am.xsd-->
+  
+  <xs:element name="AMConfiguration">
+    <xs:annotation>
+      <xs:documentation>Contains information about all registered sensors and their type mappings.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="SensorRegistrationConfiguration" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="n52sps:SensorIdentifier"/>
+              <xs:element ref="am:PluginType"/>
+              <xs:element name="WNSID" type="xs:token" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation>ID of the sensor at the WNS associated with this service.</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="hasConfig" type="xs:boolean" use="required">
+              <xs:annotation>
+                <xs:documentation>True if a configuration file has been saved for the sensor, else false.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Mapping" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:complexContent>
+              <xs:extension base="am:TypeMappingType"/>
+            </xs:complexContent>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

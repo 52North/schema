@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+xmlns:n52sps="http://www.52north.org/sps/v1" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+xmlns:am="http://www.52north.org/sps/v1-00/am" 
+targetNamespace="http://www.52north.org/sps/v1-00/am" 
+elementFormDefault="qualified" 
+attributeFormDefault="unqualified">
+
+  <xs:include schemaLocation="./amCommon.xsd"/>
+  <xs:import 
+  namespace="http://www.52north.org/sps/v1" 
+  schemaLocation="./common4am.xsd"/>
+  
+  <xs:element name="RegisterAtWNS">
+    <xs:complexType>
+      <xs:choice>
+        <xs:element ref="n52sps:SensorID"/>
+        <xs:element ref="n52sps:QualifiedAlias"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegisterAtWNSResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="WNSID" type="xs:token">
+          <xs:annotation>
+            <xs:documentation>ID of the sensor at the WNS associated with this service.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

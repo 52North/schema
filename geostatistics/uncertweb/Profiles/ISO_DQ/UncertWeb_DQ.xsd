@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mit XMLSpy v2011 rel. 3 (x64) (http://www.altova.com) von Christoph Stasch (Westfaelische Wilhelms-Universitaet) bearbeitet -->
+<!-- edited with XMLSpy v2008 (http://www.altova.com) by Institut für Geoinformatik (Institut für Geoinformatik) -->
+<!-- ============================================================= -->
+<!-- === Schema defining extension of ISO:19139 Data Quality schema; an additional UncertaintyResult type is defined=== -->
+<!-- ============================================================= -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:un="http://www.uncertml.org/2.0" targetNamespace="http://www.isotc211.org/2005/gmd" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.0.1">
+	<include schemaLocation="http://schemas.opengis.net/iso/19139/20070417/gmd/gmd.xsd"/>
+	<import namespace="http://www.isotc211.org/2005/gco" schemaLocation="http://schemas.opengis.net/iso/19139/20070417/gco/gco.xsd"/>
+	<import namespace="http://www.uncertml.org/2.0" schemaLocation="http://uncertml.org/uncertml.xsd"/>
+	<!-- =========================================================== -->
+	<!-- == definition of uncertainty result ======= -->
+	<!-- =========================================================== -->
+	<element name="DQ_UncertaintyResult" type="gmd:DQ_UncertaintyResult_Type" substitutionGroup="gmd:AbstractDQ_Result"/>
+	<!-- =========================================================== -->
+	<!-- == definition of uncertainty result type ======= -->
+	<!-- =========================================================== -->
+	<complexType name="DQ_UncertaintyResult_Type">
+		<annotation>
+			<documentation>Quantitative_conformance_measure from Quality Procedures.  -  - Renamed to remove implied use limitation -  - OCL - -- result is type specified by valueDomain - result.tupleType = valueDomain</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="gmd:AbstractDQ_Result_Type">
+				<sequence>
+					<element name="valueUnit" type="gco:UnitOfMeasure_PropertyType"/>
+					<element name="value" maxOccurs="unbounded">
+						<complexType>
+							<sequence>
+								<element ref="un:AbstractUncertainty"/>
+							</sequence>
+						</complexType>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+</schema>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mit XMLSpy v2006 sp1 U bearbeitet (http://www.altova.com) von Jesse Blue (NONE) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Institut für Geoinformatik (Institut für Geoinformatik) -->
+<xs:schema xmlns="http://www.52north.org/authentication" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.52north.org/authentication" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="AuthenticationMethodList">
+		<xs:annotation>
+			<xs:documentation>Comment describing your root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence maxOccurs="unbounded">
+				<xs:element name="AuthenticationMethod" type="AuthenticationMethodType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="AuthenticationMethodType">
+		<xs:sequence>
+			<xs:element name="URI" type="xs:string"/>
+			<xs:element name="ParameterList" type="ParameterListType" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="class" type="xs:string" use="required"/>
+		<xs:attribute name="id" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="ParameterType" mixed="false">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="name" type="xs:string" use="required"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="ParameterListType">
+		<xs:sequence>
+			<xs:element name="Parameter" type="ParameterType" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

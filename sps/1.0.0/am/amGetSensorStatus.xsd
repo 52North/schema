@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+xmlns:am="http://www.52north.org/sps/v1-00/am" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema"
+ xmlns:n52sps="http://www.52north.org/sps/v1" 
+ targetNamespace="http://www.52north.org/sps/v1-00/am" 
+ elementFormDefault="qualified" 
+ attributeFormDefault="unqualified">
+ 
+  <xs:import namespace="http://www.52north.org/sps/v1" 
+  schemaLocation="./common4am.xsd"/>
+  
+  <xs:element name="GetSensorStatus">
+    <xs:complexType>
+      <xs:choice>
+        <xs:element ref="n52sps:SensorID"/>
+        <xs:element ref="n52sps:QualifiedAlias"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSensorStatusResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="n52sps:SensorStatus"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2005 rel. 3 U (http://www.altova.com) by Johannes Echterhoff (Westfälische Wilhelms-Universität Münster) -->
+<xs:schema 
+xmlns:gml="http://www.opengis.net/gml" 
+xmlns:sps="http://www.opengis.net/sps/1.0" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+xmlns:am="http://www.52north.org/sps/v1-00/am" 
+xmlns:n52sps="http://www.52north.org/sps/v1" 
+targetNamespace="http://www.52north.org/sps/v1-00/am" 
+elementFormDefault="qualified" 
+attributeFormDefault="unqualified">
+
+  <xs:import namespace="http://www.opengis.net/gml" schemaLocation="./gml4am.xsd"/>
+  <xs:import namespace="http://www.52north.org/sps/v1" schemaLocation="./common4am.xsd"/>
+  <xs:element name="CancelTask">
+    <xs:annotation>
+      <xs:documentation>Request from the operator to cancel submitted task(s). The operator should provide a description why he cancelled the task(s). This description shall be delivered to the owners of the cancelled tasks.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:choice>
+          <xs:annotation>
+            <xs:documentation>The content chosen defines whether either all submitted tasks for a certain sensor (withSensorID) or (withTaskID) only certain tasks (from maybe different sensors) shall be cancelled. If the request contains tasks that are unknown to the service those are ignored.</xs:documentation>
+          </xs:annotation>
+          <xs:element name="AllSensorTasks">
+            <xs:complexType>
+              <xs:choice>
+                <xs:element ref="n52sps:QualifiedAlias"/>
+                <xs:element ref="n52sps:SensorID"/>
+              </xs:choice>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="SensorTasks">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element ref="n52sps:TaskID" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+        <xs:element ref="gml:description"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelTaskResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Status">
+          <xs:simpleType>
+            <xs:restriction base="xs:token">
+              <xs:enumeration value="success"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelTaskExceptionInformation">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="FailureInformation" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="n52sps:SensorIdentifier"/>
+              <xs:element name="cancelledTask" type="n52sps:TaskIDType" minOccurs="0" maxOccurs="unbounded"/>
+              <xs:element name="uncancelledTask" type="n52sps:TaskIDType" minOccurs="0" maxOccurs="unbounded"/>
+              <xs:element ref="gml:description" minOccurs="0"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

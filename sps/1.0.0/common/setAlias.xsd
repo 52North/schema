@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:n52sps="http://www.52north.org/sps/v1"
+	targetNamespace="http://www.52north.org/sps/v1"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	
+	<xs:include schemaLocation="./common.xsd"/>
+	
+	<xs:element name="SetAlias">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="SensorID" type="xs:token">
+					<xs:annotation>
+						<xs:documentation>
+							This is the ID used by the SPS framework
+							internally to clearly identify a sensor
+							(plugin) instance.
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Alias" type="xs:token">
+					<xs:annotation>
+						<xs:documentation>
+							A better remindable name for the sensor ID.
+							Must be unique for each sensor currently
+							registered within the framework and should
+							be of the form PROVIDER:SENSOR_IDENTIFIER,
+							where the syntax of the SENSOR_IDENTIFIER is
+							up to the provider - but should conform to
+							OGC rules.
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SetAliasResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Status">
+					<xs:simpleType>
+						<xs:restriction base="xs:token">
+							<xs:enumeration value="success" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

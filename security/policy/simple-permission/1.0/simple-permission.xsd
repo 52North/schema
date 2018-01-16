@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mit XMLSpy v2009 (http://www.altova.com) von JDR (con terra GmbH) bearbeitet -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:permission="http://www.52north.org/security/simple-permission/1.0" targetNamespace="http://www.52north.org/security/simple-permission/1.0" elementFormDefault="qualified">
+	<element name="SimplePermissions" type="permission:SimplePermissionsType"/>
+	<complexType name="SimplePermissionsType">
+		<sequence>
+			<element name="PermissionSet" type="permission:PermissionSetType" minOccurs="0" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	<complexType name="PermissionSetType">
+		<sequence>
+			<element name="ResourceDomain" type="permission:DomainType" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="ActionDomain" type="permission:DomainType" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="SubjectDomain" type="permission:DomainType" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="Permission" type="permission:PermissionType" maxOccurs="unbounded"/>
+		</sequence>
+		<attribute name="name" type="string" use="required"/>
+	</complexType>
+	<complexType name="TargetValueType">
+		<attribute name="domain" type="anyURI" default=""/>
+		<attribute name="value" type="anyURI" use="required"/>
+	</complexType>
+	<complexType name="ObligationType">
+		<sequence>
+			<element name="Attribute" type="permission:AttributeType" minOccurs="0" maxOccurs="unbounded"/>
+		</sequence>
+		<attribute name="name" type="string" use="required"/>
+	</complexType>
+	<complexType name="PermissionType" abstract="false">
+		<sequence>
+			<element name="Resource" type="permission:TargetValueType" maxOccurs="unbounded"/>
+			<element name="Action" type="permission:TargetValueType" maxOccurs="unbounded"/>
+			<element name="Subject" type="permission:TargetValueType" maxOccurs="unbounded"/>
+			<element name="Obligation" type="permission:ObligationType" minOccurs="0" maxOccurs="unbounded"/>
+		</sequence>
+		<attribute name="name" type="string" use="required"/>
+	</complexType>
+	<complexType name="DomainType">
+		<attribute name="value" type="anyURI" use="required"/>
+	</complexType>
+	<complexType name="AttributeType">
+		<complexContent>
+			<extension base="anyType">
+				<attribute name="name" type="string" use="required"/>
+			</extension>
+		</complexContent>
+	</complexType>
+</schema>

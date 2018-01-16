@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wps:ProcessDescriptions xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:uw="http://www.uncertweb.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.uncertweb.org uwMetadata.xsd http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsAll.xsd" xml:lang="en-US" service="WPS" version="1.0.0">
+	<ProcessDescription xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:xlink="http://www.w3.org/1999/xlink" wps:processVersion="2" storeSupported="true" statusSupported="false">
+		<ows:Identifier>org.uncertweb.wps.Gaussian2Samples</ows:Identifier>
+		<ows:Title>Realisations to distribution process.</ows:Title>
+		<ows:Abstract>Computes a distribution out of realisations.</ows:Abstract>
+		<ows:Metadata>
+			<uw:Annotations>
+				<uw:TextualAnnotations xlink:href="http://myserver.org/wps/metadata/metadata1.txt"/>
+			</uw:Annotations>
+		</ows:Metadata>
+		<DataInputs>
+			<Input minOccurs="1" maxOccurs="1">
+				<ows:Identifier>GaussianDistribution</ows:Identifier>
+				<ows:Title>GaussianDistribution</ows:Title>
+				<ows:Abstract>GaussianDistribution</ows:Abstract>
+				<ows:Metadata>
+					<uw:Annotations>
+						<uw:TextualAnnotations xlink:href="http://myserver.org/metadata2.txt"/>
+					</uw:Annotations>
+				</ows:Metadata>
+				<ComplexData>
+					<Default>
+						<Format>
+							<MimeType>application/netcdf</MimeType>
+						</Format>
+					</Default>
+					<Supported>
+						<Format>
+							<MimeType>text/xml</MimeType>
+							<Schema>http://giv-uw.uni-muenster.de:8080/uts/schemas/uncertml2.0.0/GaussianDistribution.xsd</Schema>
+						</Format>
+					</Supported>
+				</ComplexData>
+			</Input>
+		</DataInputs>
+		<ProcessOutputs>
+			<Output>
+				<ows:Identifier>output_distribution</ows:Identifier>
+				<ows:Title>output_distribution</ows:Title>
+				<ows:Abstract>output_distribution</ows:Abstract>
+				<ComplexOutput>
+					<Default>
+						<Format>
+							<MimeType>text/xml</MimeType>
+							<Schema>http://giv-uw.uni-muenster.de:8080/uts/schemas/uncertml2.0.0/GaussianDistribution.xsd</Schema>
+						</Format>
+					</Default>
+					<Supported>
+						<Format>
+							<MimeType>text/xml</MimeType>
+							<Schema>http://giv-uw.uni-muenster.de:8080/uts/schemas/uncertml2.0.0/GaussianDistribution.xsd</Schema>
+						</Format>
+					</Supported>
+				</ComplexOutput>
+			</Output>
+		</ProcessOutputs>
+	</ProcessDescription>
+</wps:ProcessDescriptions>

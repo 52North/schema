@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:kvp2xml="http://gatekeeper.service.security.n52.org" targetNamespace="http://gatekeeper.service.security.n52.org" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="RequestProperty">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="property" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType mixed="true">
+						<xs:complexContent mixed="true">
+							<xs:extension base="xs:anyType">
+								<xs:attribute name="name" type="xs:string" use="required"/>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OriginalBinding">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="Get/KVP"/>
+				<xs:enumeration value="Post/XML"/>
+				<xs:enumeration value="Post/KVP"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp1 U (http://www.altova.com) by Ingo Simonis (Institute for Geoinformatics) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Institut für Geoinformatik (Institut für Geoinformatik) -->
+<xs:schema 
+xmlns:am="http://www.52north.org/sps/v1-00/am" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema"
+ targetNamespace="http://www.52north.org/sps/v1-00/am" 
+ elementFormDefault="qualified" 
+ attributeFormDefault="unqualified">
+ 
+	<xs:include schemaLocation="./amConfigurations.xsd"/>
+	
+	<xs:element name="GetAMConfiguration" type="xs:string"/>
+	<xs:element name="GetAMConfigurationResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="am:AMConfiguration"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

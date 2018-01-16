@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+xmlns:n52sps="http://www.52north.org/sps/v1" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema"
+ xmlns:am="http://www.52north.org/sps/v1-00/am"
+  targetNamespace="http://www.52north.org/sps/v1-00/am" 
+  elementFormDefault="qualified"
+   attributeFormDefault="unqualified">
+   
+  <xs:include schemaLocation="./amCommon.xsd"/>
+  <xs:import 
+  namespace="http://www.52north.org/sps/v1" 
+  schemaLocation="./common4am.xsd"/>
+  
+  <xs:element name="Register">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="am:PluginType"/>
+        <xs:element ref="n52sps:Alias" minOccurs="0"/>
+        <xs:element ref="n52sps:SensorConfiguration" minOccurs="0"/>
+        <xs:element name="registerAtWNS" type="xs:boolean">
+          <xs:annotation>
+            <xs:documentation>Determines if the sensor shall be registered at a WNS specified by the SPS.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegisterResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="n52sps:SensorIdentifier"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

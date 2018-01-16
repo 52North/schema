@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+xmlns:sps="http://www.opengis.net/sps/1.0" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+xmlns:pm="http://www.52north.org/sps/v1-00/pm" 
+xmlns:n52sps="http://www.52north.org/sps/v1" 
+targetNamespace="http://www.52north.org/sps/v1-00/pm" 
+elementFormDefault="qualified" 
+attributeFormDefault="unqualified">
+
+  <xs:include schemaLocation="./pmCommon.xsd"/>
+  <xs:import namespace="http://www.52north.org/sps/v1" schemaLocation="./common4pm.xsd"/>
+  <xs:element name="GetSensorProfile">
+    <xs:complexType>
+      <xs:choice>
+        <xs:element ref="n52sps:SensorID"/>
+        <xs:element ref="n52sps:QualifiedAlias"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSensorProfileResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="pm:SensorProfile"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

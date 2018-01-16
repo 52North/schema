@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Institut für Geoinformatik (Institut für Geoinformatik) -->
+<!-- Mit XMLSpy v2006 sp1 U bearbeitet (http://www.altova.com) von Jesse Blue (NONE) -->
+<!--W3C Schema erstellt mit XMLSpy v2006 sp1 U (http://www.altova.com)-->
+<xs:schema xmlns="http://www.52north.org/enforcementservice" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:authn="http://www.52north.org/authentication" targetNamespace="http://www.52north.org/enforcementservice" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.52north.org/authentication" schemaLocation="../../authenticationMethodsList/1.0/authenticationMethodsList.xsd"/>
+	<xs:element name="EnforcementPointConfig">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="InterceptorChain" type="InterceptorChainType"/>
+				<xs:element name="ExceptionHandler" type="ParametrisedClass"/>
+				<xs:element ref="authn:AuthenticationMethodList"/>
+				<xs:element name="SecuredService">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="ServiceEndpoint"/>
+						</xs:sequence>
+						<xs:attribute name="serviceType" type="xs:string" use="required"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Binding" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="ParameterList" minOccurs="0"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="InterceptorType">
+		<xs:complexContent>
+			<xs:extension base="ParametrisedClass">
+				<xs:sequence minOccurs="0">
+					<xs:element name="PDP" type="ParametrisedClass"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="InterceptorChainType">
+		<xs:sequence>
+			<xs:element ref="Interceptor" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ParametrisedClass">
+		<xs:sequence minOccurs="0">
+			<xs:element ref="ParameterList"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string" use="optional"/>
+		<xs:attribute name="factoryClass" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="ParameterType" mixed="false">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="name" type="xs:string" use="required"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="ParameterListType">
+		<xs:sequence>
+			<xs:element name="Parameter" type="ParameterType" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ParameterList" type="ParameterListType"/>
+	<xs:element name="Interceptor" type="InterceptorType"/>
+</xs:schema>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Created with Liquid XML Studio 1.0.8.0 (http://www.liquid-technologies.com) -->
+<xs:schema xmlns:pes="http://www.52north.org/security/config/1.1" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.52north.org/security/config/1.1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="SecurityConfig" type="pes:SecurityConfigType" />
+  <xs:complexType name="SecurityConfigType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Environment">
+        <xs:complexType>
+          <xs:sequence minOccurs="1" maxOccurs="1">
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="Property" type="pes:PropertyType" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="PrivatePublicKeys">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="Provider" type="pes:PrivatePublicKeyPairProviderType" />
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="PPKPair" type="pes:PrivatePublicKeyPairType" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Services">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="Service" type="pes:ServiceType" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ServiceType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="pes:ParametrisedClassType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AuthenticationMethods">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="AuthenticationMethod" type="pes:ParametrisedClassType" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" name="LoginModules">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="LoginModule" type="pes:LoginModuleType" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" name="DecisionPoints">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="DecisionPoint" type="pes:DecisionPointType" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" name="EnforcementPoints">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="EnforcementPoint" type="pes:EnforcementPointType" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute name="type" type="xs:token" use="optional" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EnforcementPointType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="pes:ParametrisedClassType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Interceptor" type="pes:InterceptorType" />
+          <xs:element minOccurs="0" name="ExceptionHandler" type="pes:ParametrisedClassType" />
+        </xs:sequence>
+        <xs:attribute name="endpointType" type="xs:token" />
+        <xs:attribute name="endpoint" type="xs:anyURI" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="InterceptorType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="pes:ParametrisedClassType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DecisionPointType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="pes:ParametrisedClassType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="LoginModuleType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="pes:ParametrisedClassType">
+        <xs:attribute default="SUFFICIENT" name="controlFlag">
+          <xs:simpleType>
+            <xs:restriction base="xs:token">
+              <xs:enumeration value="OPTIONAL" />
+              <xs:enumeration value="REQUIRED" />
+              <xs:enumeration value="REQUISITE" />
+              <xs:enumeration value="SUFFICIENT" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="AuthenticationMethodType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="pes:ParametrisedClassType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ParametrisedClassType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Property" type="pes:PropertyType" />
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:ID" use="optional" />
+    <xs:attribute name="class" type="xs:NCName" use="optional" />
+    <xs:attribute name="factoryClass" type="xs:NCName" use="optional" />
+    <xs:attribute name="factoryMethod" type="xs:NCName" use="optional" />
+    <xs:attribute name="destroyMethod" type="xs:NCName" use="optional" />
+    <xs:attribute name="initMethod" type="xs:NCName" use="optional" />
+    <xs:attribute name="factoryIdRef" type="xs:IDREF" use="optional" />
+  </xs:complexType>
+  <xs:complexType name="CollectionClassType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Entry" type="pes:PropertyType" />
+    </xs:sequence>
+    <xs:attribute name="class" type="xs:NCName" />
+    <xs:attribute name="id" type="xs:ID" />
+  </xs:complexType>
+  <xs:complexType name="PropertyType">
+    <xs:choice minOccurs="0">
+      <xs:element name="Object" type="pes:ParametrisedClassType" />
+      <xs:element name="List" type="pes:CollectionClassType" />
+      <xs:element name="Set" type="pes:CollectionClassType" />
+      <xs:element name="Map" type="pes:CollectionClassType" />
+    </xs:choice>
+    <xs:attribute name="id" type="xs:ID" use="optional" />
+    <xs:attribute name="idRef" type="xs:IDREF" use="optional" />
+    <xs:attribute name="name" type="xs:string" use="optional" />
+    <xs:attribute name="value" type="xs:string" use="optional" />
+  </xs:complexType>
+  <xs:complexType name="PrivatePublicKeyPairProviderType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="pes:ParametrisedClassType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PrivatePublicKeyPairType">
+    <xs:attribute name="id" type="xs:ID" />
+    <xs:attribute name="alias" type="xs:token" />
+    <xs:attribute name="passwd" type="xs:token" use="optional" />
+    <xs:attribute name="providerRef" type="xs:IDREF" />
+  </xs:complexType>
+</xs:schema>

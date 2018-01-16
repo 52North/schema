@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Catalog used in the UncertWeb project to redirect the schema locations of 
+1.GML to the schema containing the UncertML restrictions 
+and to 
+2. redirect the UncertML 2 schema location.
+-->
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:entity:xmlns:xml:catalog
+Catalog.xsd">
+
+<!-- mapping to GML Profile schema is necessary because of ISO Data Quality schema import; PLEASE SET THE VALUE OF THE rewritePrefix ATTRIBUTE TO THE LOCAL PATH TO YOUR GML PROFILE SCHEMA -->
+<rewriteSystem systemIdStartString="http://schemas.opengis.net/gml/3.2.1/gml.xsd" rewritePrefix="http://52north.org/schema/geostatistics/uncertweb/profiles/gml/UncertWeb_GML.xsd"/>
+
+<rewriteSystem systemIdStartString="http://www.uncertweb.org/schema/uncertml/uncertml2.xsd" rewritePrefix="http://52north.org/schema/geostatistics/uncertweb/uncertml/uncertml2.xsd"/>
+
+</catalog>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2005 rel. 3 U (http://www.altova.com) by Johannes Echterhoff (Westfälische Wilhelms-Universität Münster) -->
+<xs:schema xmlns:pm="http://www.52north.org/sps/v1-00/pm" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:sps="http://www.opengis.net/sps/0.0" xmlns:n52sps="http://www.52north.org/sps/v1" targetNamespace="http://www.52north.org/sps/v1-00/pm" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:import namespace="http://www.52north.org/sps/v1" schemaLocation="./common4pm.xsd"/>
+  <xs:element name="UpdateResultAccess">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:choice>
+          <xs:element ref="n52sps:SensorID"/>
+          <xs:element ref="n52sps:QualifiedAlias"/>
+        </xs:choice>
+        <xs:choice>
+          <xs:element name="CreateTaskAccess" type="n52sps:TaskDataAccessType">
+            <xs:annotation>
+              <xs:documentation>An entry with the given information will be created. Exception with code 'TaskIDAlreadyExists' will be thrown if a TaskAccess with the given TaskID has been created beforehand. Use UpdateTaskAccess for updating such an entry.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="UpdateTaskAccess" type="n52sps:TaskDataAccessType">
+            <xs:annotation>
+              <xs:documentation>The entry with the given ID will be replaced by the given information. Exception with code 'UnknownTaskID' will be thrown if no entry with the given TaskID has been found.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="DeleteTaskAccess">
+            <xs:annotation>
+              <xs:documentation>The entry with the given ID will be removed from the task data access list. Exception with code 'UnknownTaskID' will be thrown if no entry with the given TaskID has been found.</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element ref="n52sps:TaskID"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateResultAccessResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Status">
+          <xs:simpleType>
+            <xs:restriction base="xs:token">
+              <xs:enumeration value="success"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

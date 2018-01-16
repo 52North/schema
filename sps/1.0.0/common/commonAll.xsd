@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+xmlns:pm="http://www.52north.org/sps/v1" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+targetNamespace="http://www.52north.org/sps/v1" 
+elementFormDefault="qualified" 
+attributeFormDefault="unqualified" 
+xml:lang="en">
+
+  <xs:annotation>
+    <xs:appinfo>commonAll.xsd 2007/06</xs:appinfo>
+    <xs:documentation>
+      <description>This XML Schema includes all operation-schemas defined for SPS common.</description>
+    </xs:documentation>
+  </xs:annotation>
+  <!-- ==============================================================
+		includes and imports
+	============================================================== -->
+  <xs:include schemaLocation="common.xsd"/>
+  <xs:include schemaLocation="setAlias.xsd"/>
+</xs:schema>

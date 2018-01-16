@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 (http://www.altova.com) by Institut für Geoinformatik (Institut für Geoinformatik) -->
+<!-- Schema for uncertain input types of Albatross Model Service-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:un="http://www.uncertml.org/2.0" xmlns:uw="http://www.uncertweb.org" targetNamespace="http://www.uncertweb.org" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.uncertml.org/2.0" schemaLocation="http://uncertml.org/uncertml.xsd"/>
+	<xs:element name="UncertainAlbatrossInput">
+		<xs:annotation>
+			<xs:documentation>Comment describing your root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="albatrossID" maxOccurs="unbounded"/>
+				<xs:element name="parameter" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="xs:string">
+								<xs:attribute name="name" type="xs:string" use="required" form="unqualified"/>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element ref="un:StandardDeviation"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Mit XMLSpy v2006 sp1 U bearbeitet (http://www.altova.com) von Jesse Blue (NONE) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Institut für Geoinformatik (Institut für Geoinformatik) -->
+<!-- Mit XMLSpy v2006 sp1 U bearbeitet (http://www.altova.com) von Jesse Blue (NONE) -->
+<!--W3C Schema erstellt mit XMLSpy v2006 sp1 U (http://www.altova.com)-->
+<xs:schema xmlns:authn="http://www.52north.org/authentication" xmlns="http://www.52north.org/authenticationservice" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.52north.org/authenticationservice" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.52north.org/authentication" schemaLocation="../../authenticationMethodsList/1.0/authenticationMethodsList.xsd"/>
+	<xs:element name="AuthenticationServiceConfig">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="authn:AuthenticationMethodList"/>
+				<xs:element name="SAML">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Certificate">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="Store"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="PrivateKey">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="Store"/>
+										<xs:element name="Password" type="xs:string"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="TicketTimeout" type="xs:int" default="1800"/>
+							<xs:element name="IssuerName" type="xs:string"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Binding" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="ParameterList" minOccurs="0"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ParameterType" mixed="false">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="name" type="xs:string" use="required"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="ParameterListType">
+		<xs:sequence>
+			<xs:element name="Parameter" type="ParameterType" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ParameterList" type="ParameterListType"/>
+	<xs:element name="Store" type="StoreType"/>
+	<xs:complexType name="StoreType">
+		<xs:sequence>
+			<xs:element name="Location" type="xs:anyURI">
+				<xs:annotation>
+					<xs:documentation>URI that points to the store, e.g. file:///etc/.keystore </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Password" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Password needed to access the store if any</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Alias" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Alias of the certifacte or private key inside the store</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="type" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>type of the store, eg. "JKS" for Java Keystores or "file" for keys and certificates in simple files</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>

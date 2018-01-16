@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2005 rel. 3 U (http://www.altova.com) by Henning Bredel (Westfälische Wilhelms-Universität Münster) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml" xmlns:sml="http://www.opengis.net/sensorML" xmlns:sps="http://www.opengis.net/sps/1.0" xmlns:n52sps="http://www.52north.org/sps/v1" targetNamespace="http://www.52north.org/sps/v1" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<!--============= IMPORTS ======================-->
+	<xs:import namespace="http://www.opengis.net/sps/1.0" schemaLocation="./sps4common.xsd"/>
+	<xs:import namespace="http://www.opengis.net/gml" schemaLocation="http://schemas.opengis.net/gml/3.1.1/base/gmlBase.xsd"/>
+	<!--============= ELEMENTS ====================-->
+	<xs:element name="DefaultDataServices" type="n52sps:DataServicesType">
+		<xs:annotation>
+			<xs:documentation>Provides the services (given by service URL and service type) which will be returned upon DescribeResultAccess with sensorID. This information is pure meta information about which services (URLs) of which type will most likely store the information gathered by the sensor. This allows clients to determine in advance whether they are capable of accessing the sensor data or not.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ProfileInformation">
+		<xs:annotation>
+			<xs:documentation>Container for information that have to be provided by a sensor. The information will be used to create a SensorProfile for the sensor which can be registered to the PM.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="AreaOfService" type="sps:AreaOfServiceType"/>
+				<xs:element name="Phenomenon" type="xs:anyURI"/>
+				<xs:element name="SensorDescription" type="n52sps:SensorDescriptionType"/>
+				<xs:element ref="sps:InputDescriptor" maxOccurs="unbounded"/>
+				<xs:element ref="n52sps:DefaultDataServices"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ProfileInformationUpdate">
+		<xs:annotation>
+			<xs:documentation>Container for information that shall be updated in a specific SensorProfile. The information provided in one of the elements will replace all existing information for that element. E.g. if one or more InputDescriptors are provided those will replace the existing ones.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="AreaOfService" type="sps:AreaOfServiceType" minOccurs="0"/>
+				<xs:element name="Phenomenon" type="xs:anyURI" minOccurs="0"/>
+				<xs:element name="SensorDescription" type="n52sps:SensorDescriptionType" minOccurs="0"/>
+				<xs:element ref="sps:InputDescriptor" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="n52sps:DefaultDataServices" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SensorID" type="xs:token">
+		<xs:annotation>
+			<xs:documentation>This is the ID used by the SPS framework internally to  clearly identify a sensor (plugin) instance.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Alias" type="n52sps:aliasRestrictionType">
+		<xs:annotation>
+			<xs:documentation>A better remindable name for the sensor ID. Must be unique for each sensor currently registered within the framework and should be of the form PROVIDER:SENSOR_IDENTIFIER, where the syntax of the SENSOR_IDENTIFIER is up to the provider - but should conform to OGC rules.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="aliasRestrictionType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[^:]+"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="QualifiedAlias" type="xs:token">
+		<xs:annotation>
+			<xs:documentation>Contains the fully qualified OGC URN for identifying a sensor instance. This URN contains the urn:ogc... prefix followed by the Alias information of the provider.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="SensorIdentifier">
+		<xs:annotation>
+			<xs:documentation>Contains both internal (SensorID) and external (Alias) ID of a sensor instance.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="n52sps:SensorID"/>
+				<xs:element ref="n52sps:QualifiedAlias"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SensorConfiguration">
+		<xs:annotation>
+			<xs:documentation>Contains information to set a new sensor instance state when it is registered or to restore a sensors state when the service is restarting.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:any processContents="skip">
+					<xs:annotation>
+						<xs:documentation>The content depends on the actual sensor. Each sensor type defines its own configuration schema.</xs:documentation>
+					</xs:annotation>
+				</xs:any>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SensorConfigurationUpdate">
+		<xs:annotation>
+			<xs:documentation>Contains update information for a specific sensor.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:any namespace="##any" processContents="skip">
+					<xs:annotation>
+						<xs:documentation>The content depends on the actual sensor. Each sensor type defines its own configuration update schema.</xs:documentation>
+					</xs:annotation>
+				</xs:any>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SensorStatus">
+		<xs:annotation>
+			<xs:documentation>Used to retrieve the current status of a sensor</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Tasks">
+					<xs:annotation>
+						<xs:documentation>Each target shall provide at least the ID and status of each known task.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Task" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="n52sps:TaskID"/>
+										<xs:element name="Status">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="unknown"/>
+													<xs:enumeration value="in operation"/>
+													<xs:enumeration value="finished"/>
+													<xs:enumeration value="not yet started"/>
+													<xs:enumeration value="cancelled"/>
+													<xs:enumeration value="delayed"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element ref="n52sps:SensorStatusInformation" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SensorStatusInformation">
+		<xs:annotation>
+			<xs:documentation>Contains a report with status information a services sensor.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:any processContents="skip">
+					<xs:annotation>
+						<xs:documentation>The content depends on the actual sensor. Each sensor type defines its own status information schema.</xs:documentation>
+					</xs:annotation>
+				</xs:any>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TaskID" type="n52sps:TaskIDType"/>
+	<xs:element name="TaskDataAccess" type="n52sps:TaskDataAccessType">
+		<xs:annotation>
+			<xs:documentation>Contains information where the data gathered by a sensor in a certain task can be accessed from. If the DataServices element is omitted then the default data services for that sensor serve the data of the task.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="BasicSensorConfiguration">
+		<xs:annotation>
+			<xs:documentation>This configuration file can be used for storing the basic information a sensor needs in order to be registered.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="AreaOfService" type="sps:AreaOfServiceType"/>
+				<xs:element name="Phenomenon" type="xs:anyURI"/>
+				<xs:element name="SensorDescription" type="n52sps:SensorDescriptionType"/>
+				<xs:element ref="sps:InputDescriptor" maxOccurs="unbounded"/>
+				<xs:element ref="n52sps:DefaultDataServices"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!--============== COMPLEX TYPES ===============-->
+	<xs:complexType name="DataServicesType">
+		<xs:sequence>
+			<xs:element name="Service" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ServiceType" type="xs:string"/>
+						<xs:element name="ServiceURL" type="xs:anyURI"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SensorDescriptionType">
+		<xs:choice>
+			<xs:element name="smlURI" type="xs:anyURI">
+				<xs:annotation>
+					<xs:documentation>Links to where the SensorML description can be downloaded.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SensorMLdoc">
+				<xs:annotation>
+					<xs:documentation>Contains the SensorML description directly as XML. We chose to use ##any namespace so that we are independent of the actual SensorML version used.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:any namespace="##any" processContents="lax"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="TaskDataAccessType">
+		<xs:sequence>
+			<xs:element ref="n52sps:TaskID"/>
+			<xs:element name="DataServices" type="n52sps:TaskDataServicesType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TaskIDType">
+		<xs:simpleContent>
+			<xs:extension base="xs:token"/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="TaskDataServicesType">
+		<xs:choice>
+			<xs:element name="TaskService" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ServiceType" type="xs:string"/>
+						<xs:element name="ServiceURL" type="xs:anyURI"/>
+						<xs:element name="request" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:any namespace="##any" processContents="lax"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="DataNotAvailable">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="reason">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:enumeration value="not yet available"/>
+									<xs:enumeration value="data currently unavailable"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element ref="gml:description" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

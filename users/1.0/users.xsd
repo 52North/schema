@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.52north.org/users"
+	xmlns="http://www.52north.org/users" elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+	<xs:element name="User" type="UserType"></xs:element>
+
+	<xs:element name="UserRepository">
+		<xs:complexType>
+			<xs:sequence minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="User"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="UserType">
+		<xs:sequence minOccurs="1" maxOccurs="unbounded">
+			<xs:element name="Role">
+				<xs:complexType>
+					<xs:attribute name="name"
+						type="xs:string">
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="username" type="xs:string" use="required"></xs:attribute>
+		<xs:attribute name="password" type="xs:string"></xs:attribute>
+		<xs:attribute name="realname" type="xs:string"></xs:attribute>
+	</xs:complexType>
+</xs:schema>
